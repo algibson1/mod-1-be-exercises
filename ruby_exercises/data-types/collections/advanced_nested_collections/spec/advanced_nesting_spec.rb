@@ -23,12 +23,8 @@ RSpec.describe 'Advanced Nested Collections' do
 
   it 'test 2' do
     # Find the ingredients for pancakes
-    pancake_ingredients = nil
-    stores[:dennys][:dishes].each do |dish|
-      if dish[:name] == "Pancakes"
-        pancake_ingredients = dish[:ingredients]
-      end
-    end
+    pancake_ingredients = stores[:dennys][:dishes].find {|dish| dish[:name] == "Pancakes"}[:ingredients]
+    
 
     expected = ["Flour", "Eggs", "Milk", "Syrup"]
     expect(pancake_ingredients).to eq(expected)
@@ -36,12 +32,7 @@ RSpec.describe 'Advanced Nested Collections' do
 
   it 'test 3' do
     # Find the price of risotto
-    risotto_price = nil
-    stores[:olive_garden][:dishes].each do |dish|
-      if dish[:name] == "Risotto"
-        risotto_price = dish[:price]
-      end
-    end
+    risotto_price = stores[:olive_garden][:dishes].find{|dish| dish[:name] == "Risotto"}[:price]
     
 
     expect(risotto_price).to eq(12)
@@ -49,12 +40,7 @@ RSpec.describe 'Advanced Nested Collections' do
 
   it 'test 4' do
     # Find the ingredients for a Big Mac
-    big_mac_ingredients = nil
-    stores[:macdonalds][:dishes].each do |dish|
-      if dish[:name] == "Big Mac"
-        big_mac_ingredients = dish[:ingredients]
-      end
-    end
+    big_mac_ingredients = stores[:macdonalds][:dishes].find{|dish| dish[:name] == "Big Mac"}[:ingredients]
 
     expected = ['Bun','Hamburger','Ketchup','pickles']
     expect(big_mac_ingredients).to eq(expected)
@@ -68,11 +54,9 @@ RSpec.describe 'Advanced Nested Collections' do
     expect(store_names).to eq(expected)
   end
 
-  it 'test 6' do
+ it 'test 6' do
     # Find dishes names for Olive Garden
-    dishes_names = []
-    stores[:olive_garden][:dishes].each do |dish|
-      dishes_names.push(dish[:name])
+    dishes_names = stores[:olive_garden][:dishes].map do |dish| dish[:name]
     end
 
     expect(dishes_names).to eq(['Risotto', 'Steak'])
@@ -81,11 +65,9 @@ RSpec.describe 'Advanced Nested Collections' do
   it 'test 7' do
     # Return a list of employees across
     # all restaurants
-    employee_names_unflattened = []
-    stores.each do |store, info|
-      employee_names_unflattened.push(info[:employees])
-    end
-    employee_names = employee_names_unflattened.flatten
+    employee_names = stores.map do |store, info|
+    info[:employees]
+    end.flatten      
 
     expected = ["Jeff", "Zach", "Samantha", "Bob", "Sue", "James", "Alvin", "Simon", "Theodore"]
     expect(employee_names).to eq(expected)
@@ -94,13 +76,12 @@ RSpec.describe 'Advanced Nested Collections' do
   it 'test 8' do
     # Return a list of all ingredients
     # across all restaurants
-    list = []
-    stores.each do |store, info|
-    info[:dishes].each do |dish|
-      list.push(dish[:ingredients])
+    ingredients = stores.map do |store, info|
+    info[:dishes].map do |dish|
+      dish[:ingredients]
     end
-    end
-    ingredients = list.flatten
+  end.flatten
+     
   
 
     expected = [
@@ -128,10 +109,10 @@ RSpec.describe 'Advanced Nested Collections' do
 
   it 'test 9' do
     # Return the full menu price for Olive Garden
-    full_menu_price = 0
-    stores[:olive_garden][:dishes].each do |dish|
-      full_menu_price += dish[:price]
-    end
+    full_menu_price = stores[:olive_garden][:dishes].map do |dish|
+      dish[:price]
+    end.reduce(:+)
+    
 
     expect(full_menu_price).to eq(27)
   end
@@ -139,11 +120,15 @@ RSpec.describe 'Advanced Nested Collections' do
   it 'test 10' do
     # Return the full menu for Olive Garden
 
-    olive_garden_menu = {}
-    stores[:olive_garden][:dishes].each do |dish|
-      olive_garden_menu[dish[:name]] = dish
-    end
-    
+    # olive_garden_menu = {}
+    # stores[:olive_garden][:dishes].each do |dish|
+    #   olive_garden_menu[dish[:name]] = dish
+    # end
+    # ^^ The working .each method code
+
+    olive_garden_menu = stores[:olive_garden][:dishes].map {|dish| {dish[:name] => dish}}.join
+    # ^^ Produces exactly the same result except enclosed in [], which causes it to fail
+
     expected = {
       "Risotto" => {
         :name => "Risotto",
