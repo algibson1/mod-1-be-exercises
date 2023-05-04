@@ -11,7 +11,7 @@ RSpec.describe 'inject pattern test' do
     expect(difference).to eq(-170)
   end
 
-  xit 'test 2' do
+  it 'test 2' do
     bills = {
       rent: 800,
       car: 240,
@@ -28,19 +28,19 @@ RSpec.describe 'inject pattern test' do
     expect(difference).to eq(-2262)
   end
 
-  xit 'test 3' do
+  it 'test 3' do
     numbers = [2, 3, 5, 7]
     # Iterate over the numbers array defined above
     # to find the product of all the numbers
 
     product = 1
     numbers.each do |number|
-      # Your Code Here
+      product *= number
     end
     expect(product).to eq(210)
   end
 
-  xit 'test 4' do
+  it 'test 4' do
     scrabble_score = {
       letter_total: 23,
       word_muliplier: 3,
@@ -51,19 +51,21 @@ RSpec.describe 'inject pattern test' do
 
     product = 1
     scrabble_score.each do |(key, value)|
-      # Your Code Here
+      product *= value
     end
     expect(product).to eq(138)
   end
 
-  xit 'test 5' do
+  it 'test 5' do
     airlines = ["Southwest", "Delta", "United", "Frontier"]
     # Iterate over the airlines array defined above to
     # create a hash with the name of the airline as the
     # key and the length of the name as the value
 
     number_of_letters = {}
-    # Your Code Here
+    airlines.each do |airline|
+      number_of_letters[airline] = airline.length
+    end
 
     expected = {
       "Southwest" => 9,
@@ -74,7 +76,7 @@ RSpec.describe 'inject pattern test' do
     expect(number_of_letters).to eq(expected)
   end
 
-  xit 'test 6' do
+  it 'test 6' do
     topping_calories = {
       pepperoni: 430,
       sausage: 400,
@@ -86,22 +88,27 @@ RSpec.describe 'inject pattern test' do
     # to create an array of all the toppings
 
     toppings = []
-    # Your Code Here
+    topping_calories.each do |topping, calories|
+      toppings << topping.to_s
+    end
 
     expect(toppings).to eq(["pepperoni", "sausage", "olives", "peppers", "onions"])
   end
 
-  xit 'test 7' do
+  it 'test 7' do
     elements = [["a", 1], ["b", 9], ["c", 21]]
     # Iterate over the elements array defined above
     # to find the sum of all the integers
 
-    # Your Code Here
+    sum_of_second_values = 0
+    elements.each do |element|
+      sum_of_second_values += element.last
+    end
 
     expect(sum_of_second_values).to eq(31)
   end
 
-  xit 'test 8' do
+  it 'test 8' do
     toppings = {
       pepperoni: {
         calories: 430,
@@ -128,12 +135,15 @@ RSpec.describe 'inject pattern test' do
     # total calories. You will need to multiply each topping's
     # calorie count by the quantity
 
-    # Your Code Here
+    total_calories = 0
+    toppings.each do |topping, info|
+      total_calories += (info[:calories]*info[:quantity])
+    end
 
     expect(total_calories).to eq(6950)
   end
 
-  xit 'test 9' do
+  it 'test 9' do
     grades = {
       quizzes: [8, 5, 3, 6, 5],
       tests: [23, 21, 24],
@@ -145,12 +155,15 @@ RSpec.describe 'inject pattern test' do
     # calculated by averaging each category together and
     # summing all of the averages
 
-    # Your code goes here
+  final_grade = 0
+  grades.each do |category, grades|
+    final_grade += (grades.sum.to_f/grades.length.to_f)
+  end
 
     expect(final_grade).to eq(85.40)
   end
 
-  xit 'test 10' do
+  it 'test 10' do
     menu = {
       empanadas: {
         flavors: ["chicken", "potato", "steak", "veggie"],
@@ -168,8 +181,14 @@ RSpec.describe 'inject pattern test' do
 
     # Iterate over the menu hash above to create a printable
     # version of the menu
-
-    # Your Code Here
+  
+   printable_menu = "Menu:\n"
+   menu.each do |item, info|
+    last_flavor = info[:flavors].pop
+    gluten_status = "(gluten free)" if info[:gluten_free] == true
+    gluten_status = "(non gluten free)" if info[:gluten_free] == false
+    printable_menu << "- #{info[:flavors].join(", ")}, and #{last_flavor} #{item} #{gluten_status}\n"
+   end
 
     expected =  "Menu:\n"\
                 "- chicken, potato, steak, and veggie empanadas (non gluten free)\n"\
