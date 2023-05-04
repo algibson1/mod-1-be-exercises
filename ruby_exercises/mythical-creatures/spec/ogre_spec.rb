@@ -79,7 +79,7 @@ RSpec.describe Ogre do
 
     6.times { ogre.encounter(human) }
 
-    expect(ogre.encounter_counter).to eq(6)
+    expect(human.encounter_counter).to eq(6)
     expect(ogre.swings).to eq(2)
     expect(human.knocked_out?).to be true
   end
@@ -95,4 +95,21 @@ RSpec.describe Ogre do
     ogre.apologize(human)
     expect(human.knocked_out?).to be false
   end
+
+  it 'cannot be encountered by, nor will swing at, an unconscious human' do
+  ogre = Ogre.new('Brak')
+  human = Human.new
+
+  6.times { ogre.encounter(human) }
+
+  expect(human.knocked_out?).to be true
+  expect(human.encounter_counter).to eq(6)
+  3.times {ogre.encounter(human)}
+  expect(human.knocked_out?).to be true
+  expect(human.encounter_counter).to eq(6)
+  expect(ogre.swings).to eq(2)
+  end
+
+
+
 end
