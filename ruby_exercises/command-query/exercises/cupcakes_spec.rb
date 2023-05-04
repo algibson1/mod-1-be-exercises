@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'cupcake'
+# require_relative 'cupcake'
 require_relative 'cupcakes'
 
 RSpec.describe Cupcakes do

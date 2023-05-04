@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'product'
+# require_relative 'product'
 require_relative 'catalog'
 
 RSpec.describe Catalog do
@@ -19,7 +19,6 @@ RSpec.describe Catalog do
     catalog << Product.new('cupcake', 3)
     catalog << Product.new('shirt', 23)
     catalog << Product.new('button', 1)
-
     expect(catalog.cheapest).to eq('button')
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe Water do
     expect(water.temperature).to eq(295) # Measured in Kelvin
   end
 
-  xit 'can be heated' do
+  it 'can be heated' do
     water = Water.new
 
     water.heat
@@ -16,5 +16,22 @@ RSpec.describe Water do
 
     20.times { water.heat }
     expect(water.temperature).to eq(316)
+    expect(water.state).to eq("Liquid- Wet!")
   end
+
+  it 'can boil and evaporate' do
+    water = Water.new
+    100.times {water.heat}
+    expect(water.temperature).to eq(395)
+    expect(water.state).to eq("Gas- Steamy!")
+  end
+
+  it 'can cool and freeze' do
+  water = Water.new
+  25.times {water.cool}
+  expect(water.temperature).to eq(270)
+
+  expect(water.state).to eq("Solid- Icy!")
+  end
+
 end

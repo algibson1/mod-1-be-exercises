@@ -1,6 +1,6 @@
 require 'rspec'
 require_relative 'clearance'
-require_relative 'item'
+# require_relative 'item'
 
 RSpec.describe Clearance do
   it 'has no items on clearance' do

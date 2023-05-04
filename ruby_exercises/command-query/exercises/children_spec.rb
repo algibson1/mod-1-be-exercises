@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'child'
+# require_relative 'child'
 require_relative 'children'
 
 RSpec.describe Children do
@@ -21,6 +21,7 @@ RSpec.describe Children do
     children << Child.new('Robert', 2)
     children << Child.new('Fran', 8)
     children << Child.new('Hilbert', 4)
+    require "pry"; binding.pry
     expect(children.eldest.name).to eq('Fran')
   end
 end
