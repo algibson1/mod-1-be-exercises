@@ -120,14 +120,11 @@ RSpec.describe 'Advanced Nested Collections' do
   it 'test 10' do
     # Return the full menu for Olive Garden
 
-    # olive_garden_menu = {}
-    # stores[:olive_garden][:dishes].each do |dish|
-    #   olive_garden_menu[dish[:name]] = dish
-    # end
-    # ^^ The working .each method code
+    olive_garden_menu = {}
+    stores[:olive_garden][:dishes].map do |dish|
+      olive_garden_menu[dish[:name]] = dish
+    end
 
-    olive_garden_menu = stores[:olive_garden][:dishes].map {|dish| {dish[:name] => dish}}.join
-    # ^^ Produces exactly the same result except enclosed in [], which causes it to fail
 
     expected = {
       "Risotto" => {
@@ -147,8 +144,8 @@ RSpec.describe 'Advanced Nested Collections' do
   it 'test 11' do
     # Return a full menu across all restaurants
     full_menu = {}
-    stores.each do |store, info|
-    info[:dishes].each do |dish|
+    stores.map do |store, info|
+    info[:dishes].map do |dish|
       full_menu[dish[:name]] = dish
     end
   end
