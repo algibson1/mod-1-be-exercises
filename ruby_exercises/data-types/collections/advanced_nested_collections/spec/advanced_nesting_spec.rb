@@ -147,8 +147,8 @@ RSpec.describe 'Advanced Nested Collections' do
     stores.map do |store, info|
     info[:dishes].map do |dish|
       full_menu[dish[:name]] = dish
+      end
     end
-  end
 
     expected = {
       "Risotto" => {
