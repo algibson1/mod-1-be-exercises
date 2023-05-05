@@ -19,7 +19,7 @@ class Fairy
         item2 = items[1].name
         item3 = items[2].name
         items.each do |item|
-            item.enchanted
+            item.enchanted = true
         end
         child.blessed
         child.take(items)
@@ -30,14 +30,11 @@ end
 
 class ShinyThing
     attr_reader :name
-    attr_accessor :collected
+    attr_accessor :collected, :enchanted
     def initialize(name)
         @name = name
         @collected = false
         @enchanted = false
-    end
-    def enchanted
-        @enchanted = true
     end
     def enchanted?
         @enchanted
