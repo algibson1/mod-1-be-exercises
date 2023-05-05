@@ -11,7 +11,7 @@ describe Potluck do
         potluck = Potluck.new("7-13-18")
         expect(potluck.date).to eq("7-13-18")
     end
-    it 'has no dishes by default' do
+   it 'has no dishes by default' do
         potluck = Potluck.new("7-13-18")
         expect(potluck.dishes).to be_empty
     end
@@ -77,5 +77,6 @@ describe Potluck do
         potluck.add_dish(candy_salad)
         potluck.add_dish(bean_dip)
         expect(potluck.ratio(:appetizer)).to eq(50.0)
+        expect(potluck.ratio(:entre)).to eq(33.3)
     end
 end
