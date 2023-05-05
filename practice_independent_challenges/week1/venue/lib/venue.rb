@@ -13,4 +13,10 @@ class Venue
             patron.upcase 
         end
     end
+    def over_capacity?
+        @patrons.length > @capacity
+    end
+    def kick_out
+        @patrons = @patrons.shift(@capacity)
+    end
 end
