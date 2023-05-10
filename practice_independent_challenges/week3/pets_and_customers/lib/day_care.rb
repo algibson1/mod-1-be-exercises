@@ -29,4 +29,26 @@ class DayCare
             end
         end
     end
+    def feed(*pets_to_feed)
+        pets_to_feed.each do |pet_to_feed|
+            @customers.each do |customer|
+                customer.pets.each do |pet|
+                    if pet_to_feed == pet
+                        pet.feed
+                        customer.charge(@food_prices[pet.type])
+                    end
+                end
+            end
+        end
+    end
+    def feed_pets_for(customer_to_feed_pets_for)
+        @customers.each do |customer|
+            if customer_to_feed_pets_for == customer
+                customer.pets.each do |pet|
+                    pet.feed
+                    customer.charge(@food_prices[pet.type])
+                end
+            end
+        end
+    end
 end
