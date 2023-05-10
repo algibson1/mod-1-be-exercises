@@ -1,21 +1,22 @@
 require "./lib/pet"
 require "./lib/customer"
+require "./lib/day_care"
 
 RSpec.describe DayCare do
     it 'exists' do
-        daycare = DayCare.new("Happy Tails", food_prices:{cat: 3, dog: 5})
+        daycare = DayCare.new("Happy Tails", {cat: 3, dog: 5})
         expect(daycare).to be_a(DayCare)
         expect(daycare.name).to eq("Happy Tails")
     end
 
     it 'can have a different name' do
-        daycare = DayCare.new("Sunshine", food_prices:{cat: 4, dog: 6, rabbit: 2})
+        daycare = DayCare.new("Sunshine", {cat: 4, dog: 6, rabbit: 2})
         expect(daycare.name).to eq("Sunshine")
     end
 
     it 'has food prices' do
-        daycare1 = DayCare.new("Happy Tails", food_prices:{cat: 3, dog: 5})
-        daycare2 = DayCare.new("Sunshine", food_prices:{cat: 4, dog: 6, rabbit: 2})
+        daycare1 = DayCare.new("Happy Tails", {cat: 3, dog: 5})
+        daycare2 = DayCare.new("Sunshine", {cat: 4, dog: 6, rabbit: 2})
         expect(daycare1.food_prices[:cat]).to eq(3)
         expect(daycare2.food_prices[:dog]).to eq(6)
         expect(daycare1.food_prices[:rabbit]).to be_nil
@@ -23,7 +24,7 @@ RSpec.describe DayCare do
     end
 
     it 'can take new customers' do
-        daycare = DayCare.new("Happy Tails", food_prices:{cat: 3, dog: 5})
+        daycare = DayCare.new("Happy Tails", {cat: 3, dog: 5})
         joel = Customer.new("Joel", 2)
         samson = Pet.new({name: "Samson", type: :dog, age: 3})
         lucy = Pet.new({name: "Lucy", type: :cat, age: 12})
@@ -43,7 +44,7 @@ RSpec.describe DayCare do
     end
 
     it 'can list pets that are unfed' do
-        daycare = DayCare.new("Happy Tails", food_prices:{cat: 3, dog: 5})
+        daycare = DayCare.new("Happy Tails", {cat: 3, dog: 5})
         joel = Customer.new("Joel", 2)
         samson = Pet.new({name: "Samson", type: :dog, age: 3})
         lucy = Pet.new({name: "Lucy", type: :cat, age: 12})
@@ -63,8 +64,8 @@ RSpec.describe DayCare do
     end
 
     it 'can feed all pets' do
-        daycare1 = DayCare.new("Happy Tails", food_prices:{cat: 3, dog: 5})
-        daycare2 = DayCare.new("Sunshine", food_prices:{cat: 4, dog: 6, rabbit: 2})
+        daycare1 = DayCare.new("Happy Tails", {cat: 3, dog: 5})
+        daycare2 = DayCare.new("Sunshine", {cat: 4, dog: 6, rabbit: 2})
         joel = Customer.new("Joel", 2)
         samson = Pet.new({name: "Samson", type: :dog, age: 3})
         lucy = Pet.new({name: "Lucy", type: :cat, age: 12})
