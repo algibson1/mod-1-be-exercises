@@ -9,7 +9,7 @@ class Mod
         @students << student
     end
     def capitalized_student_names
-        @students.map {|student| student.name.capitalize}
+        @students.map {|student| student.name}
     end
     def alphabetical_student_names
         capitalized_student_names.sort
