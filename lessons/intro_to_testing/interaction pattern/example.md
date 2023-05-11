@@ -17,3 +17,8 @@ pry(main)> student.add_cookie('Snickerdoodle')
 pry(main)> student.cookies
 => ["Chocolate Chunk", "Snickerdoodle"]
 ```
+
+<!-- 2 types of methods
+1. Query - asking for something, we get it returned back
+2. Command - A method performs an action (often changes something else)
+-->
