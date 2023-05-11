@@ -32,6 +32,7 @@ describe Mod do
         mod_1.add_student(richard)
         mod_1.add_student(meg)
         expect(mod_1.students).to eq([chris, richard, meg])
+        require 'pry'; binding.pry
     end
 
     it "can format student names" do
