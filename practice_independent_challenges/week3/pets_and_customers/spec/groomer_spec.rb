@@ -9,17 +9,17 @@ describe Groomer do
         expect(brushes).to be_a(Groomer)
     end
 
-    xit "has a name" do
+    it "has a name" do
         brushes = Groomer.new("Brushes and Bows")
         expect(brushes.name).to eq("Brushes and Bows")
     end
 
-    xit "has no customers by default" do
+    it "has no customers by default" do
         brushes = Groomer.new("Brushes and Bows")
         expect(brushes.customers).to be_empty
     end
 
-    xit "can get customers" do
+    it "can get customers" do
         brushes = Groomer.new("Brushes and Bows")
         joel = Customer.new("Joel", 2)
         nina = Customer.new("Nina", 8)
@@ -28,7 +28,7 @@ describe Groomer do
         expect(brushes.customers).to eq([joel, nina])
     end
 
-    xit "can find all customers with outstanding balances" do
+    it "can find all customers with outstanding balances" do
         brushes = Groomer.new("Brushes and Bows")
         joel = Customer.new("Joel", 2)
         nina = Customer.new("Nina", 8)
@@ -41,7 +41,7 @@ describe Groomer do
         expect(brushes.customers_with_outstanding_balances).to eq([joel, nina])
     end
 
-    xit "can count number of pets by type" do
+    it "can count number of pets by type" do
         brushes = Groomer.new("Brushes and Bows")
         joel = Customer.new("Joel", 2)
         samson = Pet.new({name: "Samson", type: :dog, age: 3})
@@ -75,7 +75,7 @@ describe Groomer do
         expect(brushes.pet_count(:bird)).to eq(0)
     end
 
-    xit "can categorize charges" do
+    it "can categorize charges" do
         brushes = Groomer.new("Brushes and Bows")
         joel = Customer.new("Joel", 2)
         samson = Pet.new({name: "Samson", type: :dog, age: 3})
@@ -92,8 +92,11 @@ describe Groomer do
         brushes.service_charge({service: :wash, amount: 10, pet: samson})
         expect(joel.outstanding_balance).to eq(10)
         brushes.service_charge({service: :haircut, amount: 13, pet: spot})
-        expect(nine.outstanding_balance).to eq(13)
-        expect(brushes.charges_on_file).to eq({joel => {service: :wash, amount: 10, pet: samson}, nina => {service: :haircut, amount: 13, pet: spot}})
+        expect(nina.outstanding_balance).to eq(13)
+        expect(brushes.charges_on_file).to eq({joel => [{service: :wash, amount: 10, pet: samson}], nina => [{service: :haircut, amount: 13, pet: spot}]})
+        brushes.service_charge({service: :wash, amount: 5, pet: lucy})
+        expect(joel.outstanding_balance).to eq(15)
+        expect(brushes.charges_on_file).to eq({joel => [{service: :wash, amount: 10, pet: samson}, {service: :wash, amount: 5, pet: lucy}], nina => [{service: :haircut, amount: 13, pet: spot}]})
     end
 # The pet grooming company would like to be able to track more information on charges. They want to be able to track what the charge was for, for example washing, hair cut, etc. They also want to know which customer the charge applies to, which pet the charge applies to, and the amount of the charge. 
 
