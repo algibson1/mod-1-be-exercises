@@ -61,7 +61,7 @@ RSpec.describe Vampire do
     expect(vampire.wake).to eq(true)
   end
 
-  it "is thirsty when it awakens" do
+  it "is thirsty when x awakens" do
     vampire = Vampire.new("Elizabeth Bathory", "purple")
 
     vampire.drink
