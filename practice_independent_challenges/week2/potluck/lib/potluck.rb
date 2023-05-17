@@ -14,7 +14,7 @@ class Potluck
     end
     def menu
         @dishes = @dishes.sort_by do |dish|
-            dish.name.chr
+            dish.name
         end
         grouped = Hash.new{|hash, key| hash[key] = []}
         @dishes.each do |dish|
